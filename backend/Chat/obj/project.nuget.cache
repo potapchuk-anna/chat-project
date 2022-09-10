@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "6uAdffD99IiZgXtqChlLDQl90vQuWkdFsWPmHHZe7Z9786GBhtp7jq25KZJkW7T2nZZDnB4Sr+rwqHf0IMSX/A==",
+  "success": true,
+  "projectFilePath": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\Chat.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Аня\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Аня\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Аня\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Аня\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Аня\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Аня\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}
