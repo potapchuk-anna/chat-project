@@ -1,0 +1,16 @@
+<div class="wrapper">
+  <div class="chat-block-wrapper" *ngIf="chats$|async as chats">
+    <div class="chat-block" *ngFor="let chat of chats!" (click)="setSelectedChat(chat)">
+      <div class="logo">AA</div>
+      <div>
+        <div class="nickname">{{chat.name}}</div>
+        <div class="text">{{chat.lastMessage}}</div>
+      </div>
+    </div>
+    <button class="button-elements" (click)="logout()">Logout</button>
+  </div>
+  <div class="chat-view">
+    <app-message [chat]="selectedChat" [userId]="userId" *ngIf="selectedChat"></app-message>
+  </div>
+</div>
+

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\Chat.csproj": {}
+    "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat.csproj": {}
   },
   "projects": {
-    "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\Chat.csproj": {
+    "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\Chat.csproj",
+        "projectUniqueName": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat.csproj",
         "projectName": "Chat",
-        "projectPath": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\Chat.csproj",
+        "projectPath": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat.csproj",
         "packagesPath": "C:\\Users\\Аня\\.nuget\\packages\\",
-        "outputPath": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\Chat\\obj\\",
+        "outputPath": "D:\\Tasks\\Reenbit\\chat-project\\backend\\Chat\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Аня\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,6 +40,28 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[11.0.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[6.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[6.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.8, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[6.0.6, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.2.3, )"

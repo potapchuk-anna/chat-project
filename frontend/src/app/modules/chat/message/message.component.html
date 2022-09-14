@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <div class="group-name"> {{chat!.name}}</div>
+  <cdk-virtual-scroll-viewport itemSize="100" class="example-viewport">
+    <div *cdkVirtualFor="let item of ds">
+      <ng-container *ngIf="item">
+        <div class="message-block" *ngIf="!isLoginedUserMessage(item)" [cdkContextMenuTriggerFor]="notMyMenu">
+          <div class="message">
+            <div class="text">{{item.senderUsername}}</div>
+            <div class="reply" *ngIf="item.replyFor">{{item.replyFor.text}}</div>
+            <div>{{item.text}}</div>
+          </div>
+        </div>
+        <div class="message-block-logined" *ngIf="isLoginedUserMessage(item)" [cdkContextMenuTriggerFor]="myMenu">
+          <div class="message">
+            <div class="text-logined">me</div>
+            <div class="reply-logined" *ngIf="item.replyFor">{{item.replyFor.text}}</div>
+            <div>{{item!.text}}</div>
+          </div>
+        </div>
+
+        <!-- standard material menu -->
+        <ng-template #myMenu>
+          <div class="example-menu" cdkMenu>
+            <div class="example-menu-item" cdkMenuItem (click)="edit(item)">Edit</div>
+            <div class="example-menu-item" cdkMenuItem (click)="delete(item, false)">Delete</div>
+            <div class="example-menu-item" cdkMenuItem (click)="delete(item, true)">Delete for all</div>
+          </div>
+        </ng-template>
+        <ng-template #notMyMenu>
+          <div class="example-menu" cdkMenu>
+            <div class="example-menu-item" cdkMenuItem (click)="reply(item)">Reply</div>
+            <div class="example-menu-item" cdkMenuItem (click)="replyPrivate(item)">Reply private</div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </cdk-virtual-scroll-viewport>
+  <div class="input-wrapper">
+    <input type="text" class="input" [formControl]="text">
+    <input type="submit" value="send" class="send" (click)="post()">
+  </div>
+
+</div>

@@ -1,4 +1,4 @@
-namespace Chat
+namespace ChatProject
 {
     public class WeatherForecast
     {
