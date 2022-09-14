@@ -1,19 +1,46 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, Subject} from "rxjs";
 import {IChat} from "../models/chat";
 import {IPagination} from "../models/pagination";
+import * as signalR from '@microsoft/signalr';
 import {IMessage} from "../models/message";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
+  private  connection: any = new signalR.HubConnectionBuilder().withUrl("https://localhost:7117/chatsocket")   // mapping to the chathub as in startup.cs
+    .configureLogging(signalR.LogLevel.Information)
+    .build();
+  private recievedChatId?:number;
+  private sharedChatId = new Subject<number>();
   constructor(
     private http: HttpClient
   ) {
+    this.connection.onclose(async () => {
+      await this.start();
+    });
+    this.connection.on("ReceiveMessageChatId", (chatId: number) => { this.mapReceivedMessage(chatId); });
+    this.start();
+  }
+  public async start() {
+    try {
+      await this.connection.start();
+      console.log("connected");
+    } catch (err) {
+      console.log(err);
+      setTimeout(() => this.start(), 5000);
+    }
   }
 
+  private mapReceivedMessage(chatId: number): void {
+    this.recievedChatId = chatId;
+    this.sharedChatId.next(this.recievedChatId);
+  }
+  retrieveMappedObject(): Observable<number> {
+    return this.sharedChatId.asObservable();
+  }
   getMessages(chatId: number, page: number, loginedUserId: number): Observable<IMessage[]> {
     return this.http.get<IMessage[]>(`https://localhost:7117/api/messages/chat/${chatId}/${loginedUserId}?page=${page}`);
   }

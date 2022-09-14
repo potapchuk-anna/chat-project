@@ -1,6 +1,8 @@
 ﻿using ChatProject.Data;
 using ChatProject.Data.Dtos;
+using ChatProject.HubConfig;
 using ChatProject.Models;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -9,14 +11,18 @@ namespace ChatProject.Services
     public class MessageService : IMessageService
     {
         private readonly ApplicationDbContext context;
+        private readonly IHubContext<ChatHub> hubContext;
 
-        public MessageService(ApplicationDbContext context)
+        public MessageService(ApplicationDbContext context, IHubContext<ChatHub> hubContext)
         {
             this.context = context;
+            this.hubContext = hubContext;
         }
         public async Task Delete(long id, bool isForAll)
         {
-            var message = context.Messages.FirstOrDefault(m => m.Id == id);
+            var message = context.Messages
+                .Include(c=>c.UserChat)
+                .FirstOrDefault(m => m.Id == id);
             if (isForAll)
             {
                 context.Messages.Remove(message);
@@ -27,15 +33,18 @@ namespace ChatProject.Services
                 context.Messages.Update(message);
             }
             await context.SaveChangesAsync();
+            await hubContext.Clients.All.SendAsync("ReceiveMessageChatId", message.UserChat.ChatId);
         }
 
         public async Task Edit(long id, string text)
         {
             var message = context.Messages
+                .Include(m=>m.UserChat)
                 .FirstOrDefault(m => m.Id == id);
             message.Text = text;
             context.Messages.Update(message);
             await context.SaveChangesAsync();
+            await hubContext.Clients.All.SendAsync("ReceiveMessageChatId", message.UserChat.ChatId);
         }
 
         public async Task<List<MessageDto>> Get(long chatId, long page, long loginedUserId)
@@ -117,7 +126,7 @@ namespace ChatProject.Services
                         Time = DateTime.Now.ToUniversalTime()
                     });
                     await context.SaveChangesAsync();
-                }
+                }   
             }
             if(curChatId.HasValue)
             {
@@ -134,6 +143,7 @@ namespace ChatProject.Services
                 });
                 await context.SaveChangesAsync();
             }
+            await hubContext.Clients.All.SendAsync("ReceiveMessageChatId", curChatId);
             
         }
     }

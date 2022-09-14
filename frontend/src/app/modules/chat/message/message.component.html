@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="group-name"> {{chat!.name}}</div>
+  <div class="group-name" *ngIf="chat!.name"> {{chat!.name}}</div>
   <cdk-virtual-scroll-viewport itemSize="100" class="example-viewport">
     <div *cdkVirtualFor="let item of ds">
       <ng-container *ngIf="item">
@@ -35,7 +35,7 @@
       </ng-container>
     </div>
   </cdk-virtual-scroll-viewport>
-  <div class="input-wrapper">
+  <div class="input-wrapper" *ngIf="chat!.name">
     <input type="text" class="input" [formControl]="text">
     <input type="submit" value="send" class="send" (click)="post()">
   </div>

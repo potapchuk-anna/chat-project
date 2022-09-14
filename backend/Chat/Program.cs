@@ -1,4 +1,5 @@
 using ChatProject.Data;
+using ChatProject.HubConfig;
 using ChatProject.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -21,9 +22,10 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("EnableCors", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("http://localhost:4200")
         .AllowAnyHeader()
-        .AllowAnyMethod();
+        .AllowAnyMethod()
+        .AllowCredentials();
 
     });
 });
@@ -47,6 +49,7 @@ builder.Services.AddAuthentication(opt =>
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("secret1234567890"))
     };
 });
+builder.Services.AddSignalR();
 builder.Services.AddControllers();
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -82,5 +85,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chatsocket");
 
 app.Run();

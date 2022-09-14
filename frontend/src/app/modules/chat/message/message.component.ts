@@ -33,6 +33,13 @@ export class MessageComponent implements OnInit {
       this.service.getTotal(this.chat.id).subscribe((total)=>{
         this.ds= new PaginationService(this.service, total, this.chat!.id, this.userId!);
       });
+      this.service.retrieveMappedObject().subscribe((chatId)=>{
+        if(chatId==this.chat?.id){
+          this.service.getTotal(chatId).subscribe((total)=>{
+            this.ds= new PaginationService(this.service, total, chatId,this.userId!);
+          });
+        }
+      });
     }
 
   }
@@ -69,9 +76,6 @@ export class MessageComponent implements OnInit {
       } as IMessage);
     }
     this.text.reset();
-    this.service.getTotal(this.chat?.id!).subscribe((total)=>{
-      this.ds= new PaginationService(this.service, total, this.chat?.id!,this.userId!);
-    });
   }
 
   isLoginedUserMessage(item: IMessage) {
